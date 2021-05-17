@@ -1,4 +1,5 @@
 import { rest } from 'msw';
+import jwt from 'jsonwebtoken';
 
 export const handlers = [
   rest.post('/login', (req, res, ctx) => {
@@ -8,7 +9,14 @@ export const handlers = [
       return res(
         ctx.status(200),
         ctx.set({
-          'x-access-token': '123',
+          'x-access-token': jwt.sign(
+            {
+              email: 'foo@bar.com',
+              isAdmin: false,
+              hasSubscription: false,
+            },
+            'secret:-)',
+          ),
         }),
         ctx.json({
           id: 'f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
@@ -23,12 +31,12 @@ export const handlers = [
 
   rest.get('/me', (req, res, ctx) => {
     return res(
-      // ctx.status(200),
-      ctx.status(403),
-      ctx.json({
-        firstName: 'John',
-        lastName: 'Maverick',
-      }),
+      ctx.status(200),
+      // ctx.status(403),
+      // ctx.json({
+      //   firstName: 'John',
+      //   lastName: 'Maverick',
+      // }),
     );
   }),
 
