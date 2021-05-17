@@ -5,12 +5,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 
+// Start the mocking conditionally.
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./api/mocks/browser');
+  worker.start();
+}
+
 ReactDOM.render(
   <StrictMode>
     <ColorModeScript />
     <App />
   </StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
