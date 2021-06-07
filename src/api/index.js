@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseUrl: '',
+  baseURL: 'http://localhost:3008',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -13,7 +13,7 @@ const axiosInstance = axios.create({
 
 const api = {
   login(email, password) {
-    return axiosInstance.post('/login', { email, password });
+    return axiosInstance.post('/auth', { email, password });
   },
 
   me() {
